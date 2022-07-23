@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { CclReturnData, getUserData } from "./data";
 import { User } from "./data";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./redux/slices/userSlice";
+import { RootState } from "./redux/store";
 
 export default () => {
-  const [user, setUser] = useState<User | null>(null);
+  // const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     setLoading(true);
@@ -18,9 +20,9 @@ export default () => {
           console.error("No Result");
           return;
         } else {
-          setUser(result.DATA[0]);
+          // setUser(result.DATA[0]);
           dispatch(setUser(result.DATA[0]));
-          console.log(result.DATA[0]);
+          // console.log(result.DATA[0]);
         }
       })
       .then((err) => console.error(err))
@@ -45,7 +47,7 @@ function validateGetUser(res: CclReturnData<User>): {
   error: boolean;
   msg?: string;
 } {
-  console.log(res.META);
+  // console.log(res.META);
   if (!res.DATA) {
     return { error: true, msg: "no valid data was found for the user" };
   }
