@@ -71,6 +71,6 @@ export async function getUserData(uid: number): Promise<CclReturnData<User>> {
     setTimeout(() => {
       if (user) resolve(returnData);
       else reject("user data was invalid or missing");
-    }, 100);
+    }, 1000);
   });
 }

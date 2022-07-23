@@ -1,21 +1,27 @@
 import { useEffect, useState } from "react";
 import { CclReturnData, getUserData } from "./data";
 import { User } from "./data";
+import { useDispatch } from "react-redux";
+import { setUser } from "./redux/slices/userSlice";
 
 export default () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setLoading(true);
     getUserData(1)
-      .then((res) => {
-        const { error, msg } = validateGetUser(res);
+      .then((result) => {
+        const { error, msg } = validateGetUser(result);
         if (error) {
-          console.error(msg);
+          console.error("No Result");
           return;
+        } else {
+          setUser(result.DATA[0]);
+          dispatch(setUser(result.DATA[0]));
+          console.log(result.DATA[0]);
         }
-        setUser(res.DATA[0]);
       })
       .then((err) => console.error(err))
       .finally(() => setLoading(false));
