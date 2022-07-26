@@ -19,7 +19,7 @@ export const userSlice = createSlice({
       state.pid = 0;
     },
     setUser: (state, action: PayloadAction<User>) => {
-      console.log(action.payload.NAME);
+      // console.log(action.payload.NAME);
       state.name = action.payload.NAME;
       state.position = action.payload.POSITION;
       state.physician = action.payload.PHYSICIAN;

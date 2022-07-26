@@ -23,7 +23,7 @@ export type User = {
   PID: number;
 };
 
-type Lab = {
+export type Lab = {
   PID: number;
   LAB: string;
   DATE: string;
@@ -40,7 +40,7 @@ type Encounter = {
   REG_DT_TM: string;
 };
 
-type Patient = {
+export type Patient = {
   PROVIDER_PID: number;
   PID: number;
   NAME: string;
@@ -54,9 +54,16 @@ export async function getPatientLabs(pid: number): Promise<CclReturnData<Lab>> {
 }
 
 export async function getPatients(
-  uid: number
+  pid: number
 ): Promise<CclReturnData<Patient>> {
-  throw new Error("Not implemented");
+  const returnData: CclReturnData<Patient> = patients;
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (patients) resolve(returnData);
+      else reject("Patients list was invalid or missing");
+    }, 1000);
+  });
+  //throw new Error("Not implemented");
 }
 
 /**
