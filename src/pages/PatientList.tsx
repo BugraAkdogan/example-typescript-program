@@ -23,7 +23,7 @@ function PatientList({}: Props) {
           // setUser(result.DATA[0]);
           //dispatch(setPatient(result.DATA[1]));
           result.DATA.forEach((p) => {
-            console.log(p);
+            //console.log(p);
             dispatch(setPatient(p));
           });
           // console.log(result.DATA[0]);
@@ -42,7 +42,7 @@ function PatientList({}: Props) {
   }
   return (
     <ul>
-      <li>{JSON.stringify(patient)}</li>
+      <li>{patient.map((p) => JSON.stringify(p.PROVIDER_PID))}</li>
     </ul>
   );
 }
