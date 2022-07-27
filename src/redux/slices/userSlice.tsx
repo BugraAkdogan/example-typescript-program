@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from "../../data";
+import { CclReturnData, Metadata, User } from "../../data";
 
-const initialState = {
-  name: "",
-  position: "",
-  physician: "",
-  pid: 0,
+const initialState: User = {
+  NAME: "",
+  POSITION: "",
+  PHYSICIAN: "",
+  PID: 0,
 };
 
 export const userSlice = createSlice({
@@ -13,17 +13,13 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      state.name = "";
-      state.position = "";
-      state.physician = "";
-      state.pid = 0;
+      state = initialState;
     },
     setUser: (state, action: PayloadAction<User>) => {
-      // console.log(action.payload.NAME);
-      state.name = action.payload.NAME;
-      state.position = action.payload.POSITION;
-      state.physician = action.payload.PHYSICIAN;
-      state.pid = action.payload.PID;
+      state.NAME = action.payload.NAME;
+      state.POSITION = action.payload.POSITION;
+      state.PHYSICIAN = action.payload.PHYSICIAN;
+      state.PID = action.payload.PID;
     },
   },
   extraReducers: () => {},

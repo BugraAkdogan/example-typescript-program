@@ -4,13 +4,12 @@ import { CclReturnData, getUserData, User } from "../data";
 import { setUser } from "../redux/slices/userSlice";
 import { RootState } from "../redux/store";
 
-type Props = {};
-
-function LoggedIn({}: Props) {
+function LoggedIn() {
   // const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
+  const patient = useSelector((state: RootState) => state.patient);
 
   useEffect(() => {
     setLoading(true);

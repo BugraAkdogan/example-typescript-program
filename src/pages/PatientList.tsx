@@ -21,7 +21,11 @@ function PatientList({}: Props) {
           return;
         } else {
           // setUser(result.DATA[0]);
-          dispatch(setPatient(result.DATA[0]));
+          //dispatch(setPatient(result.DATA[1]));
+          result.DATA.forEach((p) => {
+            console.log(p);
+            dispatch(setPatient(p));
+          });
           // console.log(result.DATA[0]);
         }
       })
@@ -37,9 +41,9 @@ function PatientList({}: Props) {
     );
   }
   return (
-    <div>
-      <p>{JSON.stringify(patient)}</p>
-    </div>
+    <ul>
+      <li>{JSON.stringify(patient)}</li>
+    </ul>
   );
 }
 

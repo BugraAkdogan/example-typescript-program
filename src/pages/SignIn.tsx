@@ -12,7 +12,7 @@ function SignIn() {
     console.log("clicked");
     return <LoggedIn />;
   }
-  console.log(user.name);
+  console.log(user);
   return (
     <div>
       <button onClick={handleClick}>Sign In</button>
