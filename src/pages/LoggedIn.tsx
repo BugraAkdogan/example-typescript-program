@@ -13,16 +13,17 @@ function LoggedIn() {
   useEffect(() => {
     setLoading(true);
     getUserData(1)
-      .then((result) => {
-        const { error, msg } = validateGetUser(result);
-        if (error) {
-          console.error("No Result");
+      .then((res) => {
+        console.log(res.META);
+        if (!res.DATA) {
+          console.error("no data");
           return;
-        } else {
-          // setUser(result.DATA[0]);
-          dispatch(setUser(result.DATA[0]));
-          // console.log(result.DATA[0]);
         }
+        if (res.DATA.length === 0) {
+          console.error("empty results set");
+          return;
+        }
+        dispatch(setUser(res.DATA[0]));
       })
       .then((err) => console.error(err))
       .finally(() => setLoading(false));

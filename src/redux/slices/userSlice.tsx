@@ -22,7 +22,6 @@ export const userSlice = createSlice({
       state.PID = action.payload.PID;
     },
   },
-  extraReducers: () => {},
 });
 
 export const { reset, setUser } = userSlice.actions;

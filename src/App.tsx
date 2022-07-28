@@ -6,6 +6,7 @@ import { Route, Routes, Link } from "react-router-dom";
 import { reset } from "./redux/slices/userSlice";
 import { createTheme } from "@mui/material";
 import PatientList from "./pages/PatientList";
+import Sandbox from "./pages/Sandbox";
 
 // const theme = createTheme({
 //   palette: {
@@ -28,6 +29,7 @@ export default () => {
 
   return (
     <div>
+      {/* <Sandbox /> */}
       <LoggedIn />
       <PatientList />
     </div>
