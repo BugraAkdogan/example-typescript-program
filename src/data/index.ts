@@ -80,6 +80,7 @@ export async function getPatientsData(
  * @returns a `Promise` of `CclReturnData<User>`
  */
 export async function getUserData(uid: number): Promise<CclReturnData<User>> {
+  // TODO: Want to make sure that we're filtering based on UID here.
   const returnData: CclReturnData<User> = user;
 
   return new Promise((resolve, reject) => {

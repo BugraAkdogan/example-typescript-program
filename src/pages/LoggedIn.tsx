@@ -1,32 +1,31 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CclReturnData, getUserData, User } from "../data";
-import { setUser } from "../redux/slices/userSlice";
+import { setUser, toggleLoading } from "../redux/slices/userSlice";
 import { RootState } from "../redux/store";
 
 function LoggedIn() {
-  // const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const loading = useSelector((state: RootState) => state.user.loading);
+  const {
+    NAME: name,
+    POSITION: position,
+    PHYSICIAN: isPhysician,
+  } = useSelector((state: RootState) => state.user.data);
   const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
-    setLoading(true);
+    dispatch(toggleLoading());
     getUserData(123456)
       .then((res) => {
-        console.log(res.META);
-        if (!res.DATA) {
-          console.error("no data");
-          return;
-        }
-        if (res.DATA.length === 0) {
-          console.error("empty results set");
+        const { error, msg } = validateGetUser(res);
+        if (error) {
+          console.error(msg);
           return;
         }
         dispatch(setUser(res.DATA[0]));
       })
       .then((err) => console.error(err))
-      .finally(() => setLoading(false));
+      .finally(() => dispatch(toggleLoading()));
   }, []);
 
   if (loading) {
@@ -38,7 +37,9 @@ function LoggedIn() {
   }
   return (
     <div>
-      <p>{JSON.stringify(user)}</p>
+      <p>{`${name} (${position} - ${
+        isPhysician.toLowerCase() === "yes" ? "Physician" : "Not Physician"
+      })`}</p>
     </div>
   );
 }

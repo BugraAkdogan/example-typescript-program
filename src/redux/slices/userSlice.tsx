@@ -1,28 +1,33 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CclReturnData, Metadata, User } from "../../data";
+import { User } from "../../data";
 
-const initialState: User = {
-  NAME: "",
-  POSITION: "",
-  PHYSICIAN: "",
-  PID: 0,
+type UserSliceState = {
+  loading: boolean;
+  data: User;
+};
+
+const initialState: UserSliceState = {
+  loading: false,
+  data: {
+    NAME: "None",
+    POSITION: "None",
+    PHYSICIAN: "None",
+    PID: 0,
+  },
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    reset: (state) => {
-      state = initialState;
+    toggleLoading: (state) => {
+      state.loading = !state.loading;
     },
     setUser: (state, action: PayloadAction<User>) => {
-      state.NAME = action.payload.NAME;
-      state.POSITION = action.payload.POSITION;
-      state.PHYSICIAN = action.payload.PHYSICIAN;
-      state.PID = action.payload.PID;
+      state.data = action.payload;
     },
   },
 });
 
-export const { reset, setUser } = userSlice.actions;
+export const { setUser, toggleLoading } = userSlice.actions;
 export default userSlice.reducer;

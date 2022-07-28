@@ -6,14 +6,15 @@ import { AppDispatch, RootState } from "../redux/store";
 
 function PatientList() {
   const dispatch = useDispatch();
-  const patient = useSelector((state: RootState) => state.patient.patients);
-  const loading = useSelector((state: RootState) => state.patient.loading);
-  const user = useSelector((state: RootState) => state.user);
+  const patient = useSelector((state: RootState) => state.patientList.patients);
+  const loading = useSelector((state: RootState) => state.patientList.loading);
+  const user = useSelector((state: RootState) => state.user.data);
 
   useEffect(() => {
     dispatch(toggleLoading());
     getPatientsData(123456)
       .then((res) => {
+        // TODO: perform error handling/validation here
         dispatch(setPatients(res.DATA));
       })
       .then((err) => console.error(err))
@@ -38,6 +39,7 @@ function PatientList() {
         );
       })}
       <h1>My Patients</h1>
+      {/* TODO: make sure filteration on patients occurs at the data access layer */}
       {patient
         .filter((p) => user.PID === p.PROVIDER_PID)
         .map((p, i) => {

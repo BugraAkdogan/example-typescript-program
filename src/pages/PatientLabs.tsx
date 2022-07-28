@@ -4,21 +4,25 @@ import { CclReturnData, getPatientLabsData, Lab } from "../data";
 import { toggleLoading, setPatientLabs } from "../redux/slices/patientLabSlice";
 import { RootState } from "../redux/store";
 
+// TODO: remove unused functions, variables, imports, etc.
 function PatientLabs() {
   const dispatch = useDispatch();
   const patient = useSelector(
-    (state: RootState) => state.patientLab.patientLabs
+    (state: RootState) => state.selectedPatientLabs.patientLabs
   );
-  const loading = useSelector((state: RootState) => state.patientLab.loading);
+  const loading = useSelector(
+    (state: RootState) => state.selectedPatientLabs.loading
+  );
   const user = useSelector((state: RootState) => state.user);
   const patientLabs = useSelector(
-    (state: RootState) => state.patientLab.patientLabs
+    (state: RootState) => state.selectedPatientLabs.patientLabs
   );
 
   useEffect(() => {
     dispatch(toggleLoading());
     getPatientLabsData(123456)
       .then((result) => {
+        // TODO: handle data validation here
         dispatch(setPatientLabs(result.DATA));
       })
       .then((err) => console.error(err))
