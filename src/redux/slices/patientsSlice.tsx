@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CclReturnData, getPatientsData, Patient } from "../../data";
+import { Patient } from "../../data";
 
 type PatientSlice = {
   loading: boolean;

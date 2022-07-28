@@ -7,6 +7,7 @@ import { reset } from "./redux/slices/userSlice";
 import { createTheme } from "@mui/material";
 import PatientList from "./pages/PatientList";
 import Sandbox from "./pages/Sandbox";
+import PatientLabs from "./pages/PatientLabs";
 
 // const theme = createTheme({
 //   palette: {
@@ -30,8 +31,10 @@ export default () => {
   return (
     <div>
       {/* <Sandbox /> */}
+
       <LoggedIn />
       <PatientList />
+      <PatientLabs />
     </div>
   );
 };

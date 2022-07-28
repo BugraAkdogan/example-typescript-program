@@ -1,19 +1,50 @@
-import { CclReturnData, getPatientLabs, Lab } from "../data";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { CclReturnData, getPatientLabsData, Lab } from "../data";
+import { toggleLoading, setPatientLabs } from "../redux/slices/patientLabSlice";
+import { RootState } from "../redux/store";
 
 function PatientLabs() {
-  getPatientLabs(1)
-    .then((result) => {
-      const { error, msg } = validateGetPatientLabs(result);
-      if (error) {
-        console.error("No Result");
-        return;
-      } else {
-        // setUser(result.DATA[0]);
-        return { result };
-        // console.log(result.DATA[0]);
-      }
-    })
-    .then((err) => console.error(err));
+  const dispatch = useDispatch();
+  const patient = useSelector(
+    (state: RootState) => state.patientLab.patientLabs
+  );
+  const loading = useSelector((state: RootState) => state.patientLab.loading);
+  const user = useSelector((state: RootState) => state.user);
+  const patientLabs = useSelector(
+    (state: RootState) => state.patientLab.patientLabs
+  );
+
+  useEffect(() => {
+    dispatch(toggleLoading());
+    getPatientLabsData(123456)
+      .then((result) => {
+        dispatch(setPatientLabs(result.DATA));
+      })
+      .then((err) => console.error(err))
+      .finally(() => dispatch(toggleLoading()));
+  }, []);
+
+  if (loading) {
+    return (
+      <div>
+        <p>Loading...</p>
+      </div>
+    );
+  }
+  return (
+    <ul>
+      <h1>Patient Labs</h1>
+      {patientLabs.map((l, i) => {
+        return (
+          <li key={i}>
+            Patient ID:{l.PID} Lab Type:{l.LAB} Result:
+            {l.RESULT} Date:{l.DATE}
+          </li>
+        );
+      })}
+    </ul>
+  );
 }
 
 function validateGetPatientLabs(res: CclReturnData<Lab>): {

@@ -49,7 +49,9 @@ export type Patient = {
   NEW_TO_PANEL: number;
 };
 
-export async function getPatientLabs(pid: number): Promise<CclReturnData<Lab>> {
+export async function getPatientLabsData(
+  pid: number
+): Promise<CclReturnData<Lab>> {
   const returnData: CclReturnData<Lab> = labs;
   return new Promise((resolve, reject) => {
     setTimeout(() => {

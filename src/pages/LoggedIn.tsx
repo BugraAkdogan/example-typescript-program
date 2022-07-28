@@ -12,7 +12,7 @@ function LoggedIn() {
 
   useEffect(() => {
     setLoading(true);
-    getUserData(1)
+    getUserData(123456)
       .then((res) => {
         console.log(res.META);
         if (!res.DATA) {
