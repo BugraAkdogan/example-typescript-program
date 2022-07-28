@@ -8,10 +8,11 @@ function PatientList() {
   const dispatch = useDispatch();
   const patient = useSelector((state: RootState) => state.patient.patients);
   const loading = useSelector((state: RootState) => state.patient.loading);
+  const user = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     dispatch(toggleLoading());
-    getPatientsData(1)
+    getPatientsData(123456)
       .then((res) => {
         dispatch(setPatients(res.DATA));
       })
@@ -28,6 +29,7 @@ function PatientList() {
   }
   return (
     <ul>
+      <h1>All Patients</h1>
       {patient.map((p, i) => {
         return (
           <li key={i}>
@@ -35,6 +37,16 @@ function PatientList() {
           </li>
         );
       })}
+      <h1>My Patients</h1>
+      {patient
+        .filter((p) => user.PID === p.PROVIDER_PID)
+        .map((p, i) => {
+          return (
+            <li key={i}>
+              {p.NAME} ({p.CDCR})
+            </li>
+          );
+        })}
     </ul>
   );
 }
