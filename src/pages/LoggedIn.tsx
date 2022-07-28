@@ -9,7 +9,6 @@ function LoggedIn() {
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
-  const patient = useSelector((state: RootState) => state.patient);
 
   useEffect(() => {
     setLoading(true);

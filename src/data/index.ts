@@ -50,10 +50,16 @@ export type Patient = {
 };
 
 export async function getPatientLabs(pid: number): Promise<CclReturnData<Lab>> {
-  throw new Error("Not implemented");
+  const returnData: CclReturnData<Lab> = labs;
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (labs) resolve(returnData);
+      else reject("Patients list was invalid or missing");
+    }, 1000);
+  });
 }
 
-export async function getPatients(
+export async function getPatientsData(
   pid: number
 ): Promise<CclReturnData<Patient>> {
   const returnData: CclReturnData<Patient> = patients;
