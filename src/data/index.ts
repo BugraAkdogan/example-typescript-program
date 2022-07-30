@@ -65,6 +65,9 @@ export async function getPatientsData(
   pid: number
 ): Promise<CclReturnData<Patient>> {
   const returnData: CclReturnData<Patient> = patients;
+  returnData.DATA = returnData.DATA.filter(
+    (patient) => patient.PROVIDER_PID === pid
+  );
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (patients) resolve(returnData);
@@ -80,7 +83,6 @@ export async function getPatientsData(
  * @returns a `Promise` of `CclReturnData<User>`
  */
 export async function getUserData(uid: number): Promise<CclReturnData<User>> {
-  // TODO: Want to make sure that we're filtering based on UID here.
   const returnData: CclReturnData<User> = user;
 
   return new Promise((resolve, reject) => {

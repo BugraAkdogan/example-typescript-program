@@ -12,7 +12,7 @@ function PatientList() {
 
   useEffect(() => {
     dispatch(toggleLoading());
-    getPatientsData(123456)
+    getPatientsData(providerPid)
       .then((res) => {
         // TODO: perform error handling/validation here
         dispatch(setPatients(res.DATA));
@@ -40,15 +40,13 @@ function PatientList() {
       })}
       <h1>My Patients</h1>
       {/* TODO: make sure filteration on patients occurs at the data access layer */}
-      {patient
-        .filter((p) => user.PID === p.PROVIDER_PID)
-        .map((p, i) => {
-          return (
-            <li key={i}>
-              {p.NAME} ({p.CDCR})
-            </li>
-          );
-        })}
+      {patient.map((p, i) => {
+        return (
+          <li key={i}>
+            {p.NAME} ({p.CDCR})
+          </li>
+        );
+      })}
     </ul>
   );
 }

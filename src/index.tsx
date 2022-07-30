@@ -4,6 +4,13 @@ import reportWebVitals from "./reportWebVitals";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 
+declare global {
+  /**
+   * The provider's PID provided contextually, as injected by PowerChart for the logged-in user.
+   */
+  const providerPid: number;
+}
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
