@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CclReturnData, getPatientsData, Patient } from "../data";
 import { toggleLoading, setPatients } from "../redux/slices/patientsSlice";
-import { AppDispatch, RootState } from "../redux/store";
+import { RootState } from "../redux/store";
 
 function PatientList() {
   const dispatch = useDispatch();
@@ -12,10 +12,11 @@ function PatientList() {
 
   useEffect(() => {
     dispatch(toggleLoading());
-    getPatientsData(123456)
+    getPatientsData(providerPid)
       .then((res) => {
-        // TODO: perform error handling/validation here
-        dispatch(setPatients(res.DATA));
+        const { error, msg } = validateGetPatients(res);
+        if (error) console.warn(msg);
+        else dispatch(setPatients(res.DATA));
       })
       .then((err) => console.error(err))
       .finally(() => dispatch(toggleLoading()));
@@ -30,7 +31,7 @@ function PatientList() {
   }
   return (
     <ul>
-      <h1>All Patients</h1>
+      <h1>My Patients</h1>
       {patient.map((p, i) => {
         return (
           <li key={i}>
@@ -38,17 +39,6 @@ function PatientList() {
           </li>
         );
       })}
-      <h1>My Patients</h1>
-      {/* TODO: make sure filteration on patients occurs at the data access layer */}
-      {patient
-        .filter((p) => user.PID === p.PROVIDER_PID)
-        .map((p, i) => {
-          return (
-            <li key={i}>
-              {p.NAME} ({p.CDCR})
-            </li>
-          );
-        })}
     </ul>
   );
 }
@@ -57,7 +47,6 @@ function validateGetPatients(res: CclReturnData<Patient>): {
   error: boolean;
   msg?: string;
 } {
-  console.log(res.META);
   if (!res.DATA) {
     return { error: true, msg: "no valid data was found for the patients" };
   }

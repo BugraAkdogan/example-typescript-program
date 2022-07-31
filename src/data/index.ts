@@ -1,3 +1,6 @@
+import { WindowSharp } from "@mui/icons-material";
+import { useState } from "react";
+import { useAppDispatch } from "../redux/hooks";
 import labs from "./json/patientLabs.json";
 import patients from "./json/patientList.json";
 import user from "./json/userData.json";
@@ -49,14 +52,21 @@ export type Patient = {
   NEW_TO_PANEL: number;
 };
 
+type PatientArray = {
+  Patient: Array<Patient>;
+};
+
 export async function getPatientLabsData(
   pid: number
 ): Promise<CclReturnData<Lab>> {
   const returnData: CclReturnData<Lab> = labs;
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (labs) resolve(returnData);
-      else reject("Patients list was invalid or missing");
+      if (labs) {
+        console.log(returnData);
+        returnData.DATA = returnData.DATA.filter((lab) => lab.PID === pid);
+        resolve(returnData);
+      } else reject("Labs list was invalid or missing");
     }, 1000);
   });
 }
@@ -67,11 +77,14 @@ export async function getPatientsData(
   const returnData: CclReturnData<Patient> = patients;
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (patients) resolve(returnData);
-      else reject("Patients list was invalid or missing");
+      console.log(returnData);
+
+      if (patients) {
+        returnData.DATA = returnData.DATA.filter((p) => p.PROVIDER_PID === pid);
+        resolve(returnData);
+      } else reject("Patients list was invalid or missing");
     }, 1000);
   });
-  //throw new Error("Not implemented");
 }
 
 /**
@@ -82,7 +95,6 @@ export async function getPatientsData(
 export async function getUserData(uid: number): Promise<CclReturnData<User>> {
   // TODO: Want to make sure that we're filtering based on UID here.
   const returnData: CclReturnData<User> = user;
-
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (user) resolve(returnData);

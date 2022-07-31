@@ -13,7 +13,7 @@
     {
       "PROVIDER_PID": 123456,
       "PID": 1,
-      "NAME": "Wayne, Bruce",
+      "NAME": "West, Adam",
       "CDCR": "TST001",
       "EIDS": [
         {
@@ -85,7 +85,7 @@
     {
       "PROVIDER_PID": 123456,
       "PID": 5,
-      "NAME": "Wayne, Bruce",
+      "NAME": "Quinn, Harley",
       "CDCR": "TST005",
       "EIDS": [
         {

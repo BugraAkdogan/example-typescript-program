@@ -4,7 +4,7 @@ import { CclReturnData, getUserData, User } from "../data";
 import { setUser, toggleLoading } from "../redux/slices/userSlice";
 import { RootState } from "../redux/store";
 
-function LoggedIn() {
+function PhysicianData() {
   const loading = useSelector((state: RootState) => state.user.loading);
   const {
     NAME: name,
@@ -15,14 +15,13 @@ function LoggedIn() {
 
   useEffect(() => {
     dispatch(toggleLoading());
-    getUserData(123456)
+    getUserData(providerPid)
       .then((res) => {
         const { error, msg } = validateGetUser(res);
         if (error) {
-          console.error(msg);
+          console.warn(msg);
           return;
-        }
-        dispatch(setUser(res.DATA[0]));
+        } else dispatch(setUser(res.DATA[0]));
       })
       .then((err) => console.error(err))
       .finally(() => dispatch(toggleLoading()));
@@ -64,4 +63,4 @@ function validateGetUser(res: CclReturnData<User>): {
   return { error: false };
 }
 
-export default LoggedIn;
+export default PhysicianData;
