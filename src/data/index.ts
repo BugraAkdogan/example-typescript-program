@@ -60,11 +60,13 @@ export async function getPatientLabsData(
   pid: number
 ): Promise<CclReturnData<Lab>> {
   const returnData: CclReturnData<Lab> = labs;
+  const result = returnData;
+
+  //TODO: try dispatching here
   console.log(returnData);
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (labs) {
-        const result: CclReturnData<Lab> = returnData;
         result.DATA = result.DATA.filter((lab) => lab.PID === pid);
         resolve(result);
       } else reject("Labs list was invalid or missing");
