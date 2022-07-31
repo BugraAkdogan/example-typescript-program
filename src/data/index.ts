@@ -60,12 +60,13 @@ export async function getPatientLabsData(
   pid: number
 ): Promise<CclReturnData<Lab>> {
   const returnData: CclReturnData<Lab> = labs;
+  console.log(returnData);
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (labs) {
-        console.log(returnData);
-        returnData.DATA = returnData.DATA.filter((lab) => lab.PID === pid);
-        resolve(returnData);
+        const result: CclReturnData<Lab> = returnData;
+        result.DATA = result.DATA.filter((lab) => lab.PID === pid);
+        resolve(result);
       } else reject("Labs list was invalid or missing");
     }, 1000);
   });
@@ -75,12 +76,9 @@ export async function getPatientsData(
   pid: number
 ): Promise<CclReturnData<Patient>> {
   const returnData: CclReturnData<Patient> = patients;
-  returnData.DATA = returnData.DATA.filter(
-    (patient) => patient.PROVIDER_PID === pid
-  );
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      console.log(returnData);
+      // console.log(returnData);
 
       if (patients) {
         returnData.DATA = returnData.DATA.filter((p) => p.PROVIDER_PID === pid);

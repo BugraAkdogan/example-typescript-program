@@ -6,28 +6,33 @@ import { RootState } from "../redux/store";
 
 function PatientLabs() {
   const dispatch = useDispatch();
-  const patient = useSelector((state: RootState) => state.patientList.patients);
+  const patientID = useSelector(
+    (state: RootState) => state.patientList.selectedPatient
+  );
   const loading = useSelector(
     (state: RootState) => state.selectedPatientLabs.loading
   );
-  const user = useSelector((state: RootState) => state.user);
   const patientLabs = useSelector(
     (state: RootState) => state.selectedPatientLabs.patientLabs
   );
 
   useEffect(() => {
+    if (patientID === 0) return;
     dispatch(toggleLoading());
-    getPatientLabsData(providerPid)
+    getPatientLabsData(patientID)
       .then((result) => {
         const { error, msg } = validateGetPatientLabs(result);
         if (error) {
-          console.warn(msg);
+          console.log(patientID);
+          console.log(msg);
           return;
-        } else dispatch(setPatientLabs(result.DATA));
+        } else {
+          dispatch(setPatientLabs(result.DATA));
+        }
       })
       .then((err) => console.error(err))
       .finally(() => dispatch(toggleLoading()));
-  }, []);
+  }, [patientID]);
 
   if (loading) {
     return (

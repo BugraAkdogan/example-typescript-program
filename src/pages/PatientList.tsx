@@ -1,7 +1,12 @@
+import { Button } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CclReturnData, getPatientsData, Patient } from "../data";
-import { toggleLoading, setPatients } from "../redux/slices/patientsSlice";
+import {
+  toggleLoading,
+  setPatients,
+  setSelectedPatient,
+} from "../redux/slices/patientsSlice";
 import { RootState } from "../redux/store";
 
 function PatientList() {
@@ -22,6 +27,10 @@ function PatientList() {
       .finally(() => dispatch(toggleLoading()));
   }, []);
 
+  function handleSelectPatientClick(PID: number) {
+    dispatch(setSelectedPatient(PID));
+  }
+
   if (loading) {
     return (
       <div>
@@ -35,6 +44,12 @@ function PatientList() {
       {patient.map((p, i) => {
         return (
           <li key={i}>
+            <Button
+              variant="outlined"
+              onClick={() => handleSelectPatientClick(p.PID)}
+            >
+              Select
+            </Button>
             {p.NAME} ({p.CDCR})
           </li>
         );

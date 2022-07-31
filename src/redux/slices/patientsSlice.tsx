@@ -4,11 +4,13 @@ import { Patient } from "../../data";
 type PatientSlice = {
   loading: boolean;
   patients: Array<Patient>;
+  selectedPatient: number;
 };
 
 const initialState: PatientSlice = {
   loading: false,
   patients: [],
+  selectedPatient: 0,
 };
 
 export const patientsSlice = createSlice({
@@ -21,8 +23,12 @@ export const patientsSlice = createSlice({
     setPatients: (state, action: PayloadAction<Array<Patient>>) => {
       state.patients = action.payload;
     },
+    setSelectedPatient: (state, action: PayloadAction<number>) => {
+      state.selectedPatient = action.payload;
+    },
   },
 });
 
-export const { toggleLoading, setPatients } = patientsSlice.actions;
+export const { toggleLoading, setPatients, setSelectedPatient } =
+  patientsSlice.actions;
 export default patientsSlice.reducer;
