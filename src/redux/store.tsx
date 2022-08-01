@@ -8,6 +8,7 @@ export const store = configureStore({
     user: userReducer,
     patientList: patientReducer,
     selectedPatientLabs: patientLabReducer,
+    filteredPatientLabs: patientLabReducer,
   },
 });
 

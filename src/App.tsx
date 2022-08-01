@@ -8,7 +8,7 @@ import LoginIcon from "@mui/icons-material/Login";
 //TODO: use useState to render logged in or not logged in
 
 export default function () {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   function handleLogin() {
     setLoggedIn(true);
@@ -32,7 +32,6 @@ export default function () {
         >
           Login
         </Button>
-        <PatientLabs />
       </div>
     );
   }

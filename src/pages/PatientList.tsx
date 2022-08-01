@@ -20,7 +20,7 @@ function PatientList() {
     getPatientsData(providerPid)
       .then((res) => {
         const { error, msg } = validateGetPatients(res);
-        if (error) console.warn(msg);
+        if (error) console.log(msg);
         else dispatch(setPatients(res.DATA));
       })
       .then((err) => console.error(err))

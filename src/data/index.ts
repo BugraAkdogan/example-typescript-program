@@ -1,9 +1,14 @@
-import { WindowSharp } from "@mui/icons-material";
-import { useState } from "react";
-import { useAppDispatch } from "../redux/hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { setFilteredLabs } from "../redux/slices/patientLabSlice";
+import { RootState } from "../redux/store";
 import labs from "./json/patientLabs.json";
 import patients from "./json/patientList.json";
 import user from "./json/userData.json";
+
+// const dispatch = useDispatch;
+// const labSelector = useSelector(
+//   (state: RootState) => state.selectedPatientLabs.filteredLabs
+// );
 
 export type Metadata = {
   CODE: number;
@@ -60,9 +65,11 @@ export async function getPatientLabsData(
   pid: number
 ): Promise<CclReturnData<Lab>> {
   const returnData: CclReturnData<Lab> = labs;
-  const result = returnData;
 
-  //TODO: try dispatching here
+  const result: CclReturnData<Lab> = JSON.parse(JSON.stringify(returnData));
+  //TODO: Ask travis why dispatch won't work here
+  //dispatch(setFilteredLabs(returnData.DATA));
+
   console.log(returnData);
   return new Promise((resolve, reject) => {
     setTimeout(() => {
