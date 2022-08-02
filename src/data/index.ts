@@ -67,8 +67,7 @@ export async function getPatientLabsData(
   const returnData: CclReturnData<Lab> = labs;
 
   const result: CclReturnData<Lab> = JSON.parse(JSON.stringify(returnData));
-  //TODO: Ask travis why dispatch won't work here
-  //dispatch(setFilteredLabs(returnData.DATA));
+ 
 
   console.log(returnData);
   return new Promise((resolve, reject) => {

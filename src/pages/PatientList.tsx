@@ -1,7 +1,18 @@
-import { Button } from "@mui/material";
+import MaterialTable, { Column } from "@material-table/core";
+import {
+  Button,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CclReturnData, getPatientsData, Patient } from "../data";
+import PatientListItems from "../data/components/PatientListItems";
 import {
   toggleLoading,
   setPatients,
@@ -38,24 +49,68 @@ function PatientList() {
       </div>
     );
   }
+  // return (
+  //   <ul>
+  //     <h1>My Patients</h1>
+  //     {patient.map((p, i) => {
+  //       return (
+  //         <li key={i}>
+  //           <Button
+  //             variant="outlined"
+  //             onClick={() => handleSelectPatientClick(p.PID)}
+  //           >
+  //             Select
+  //           </Button>
+  //           <PatientListItems {...p} />
+  //         </li>
+  //       );
+  //     })}
+  //   </ul>
+  // );
+  // ...p, ...{ PID: p.PID }
+
+  // return (
+  //   <MaterialTable
+  //     // data={patient.map((p) => ({ id: p.PID, name: p.NAME }))}
+  //     data={[
+  //       { id: 1, name: "Joe" },
+  //       { id: 2, name: "Mary" },
+  //     ]}
+  //     columns={[
+  //       { field: "Patient ID", title: "Patient ID" },
+  //       { field: "Name", title: "Name" },
+  //     ]}
+  //   />
+  // );
+
   return (
-    <ul>
-      <h1>My Patients</h1>
-      {patient.map((p, i) => {
-        return (
-          <li key={i}>
-            <Button
-              variant="outlined"
-              onClick={() => handleSelectPatientClick(p.PID)}
-            >
-              Select
-            </Button>
-            {p.NAME} ({p.CDCR})
-          </li>
-        );
-      })}
-    </ul>
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Patient ID</TableCell>
+            <TableCell align="left">NAME</TableCell>
+            <TableCell align="center">CDCR</TableCell>
+            <TableCell align="right">TYPE</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {patient.map((p, i) => (
+            <TableRow key={i}>
+              <TableCell component="th" scope="row">
+                {p.PID}
+              </TableCell>
+              <TableCell align="left">{p.NAME}</TableCell>
+              <TableCell align="center">{p.CDCR}</TableCell>
+              <TableCell align="right">{p.EIDS[0].TYPE}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
+
+  // return <PatientListItems {...patient} />;
 }
 
 function validateGetPatients(res: CclReturnData<Patient>): {
