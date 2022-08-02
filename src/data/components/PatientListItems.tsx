@@ -7,7 +7,8 @@ const COLS = [
 ];
 
 //export default function PatientListItems(NAME:string,PID:number,CDCR:number,EIDS[]:Patient["EIDS"]) {
-export default function PatientListItems(patient: Patient[]) {
+export default function PatientListItems(props: { patient: Patient[] }) {
+  const { patient } = props;
   const DATA = [
     { id: 2, name: "Joe" },
     { id: 1, name: "Mary" },

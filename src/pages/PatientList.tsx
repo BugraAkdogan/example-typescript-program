@@ -49,69 +49,32 @@ function PatientList() {
       </div>
     );
   }
-  // return (
-  //   <ul>
-  //     <h1>My Patients</h1>
-  //     {patient.map((p, i) => {
-  //       return (
-  //         <li key={i}>
-  //           <Button
-  //             variant="outlined"
-  //             onClick={() => handleSelectPatientClick(p.PID)}
-  //           >
-  //             Select
-  //           </Button>
-  //           <PatientListItems {...p} />
-  //         </li>
-  //       );
-  //     })}
-  //   </ul>
-  // );
-  // ...p, ...{ PID: p.PID }
-
-  // return (
-  //   <MaterialTable
-  //     // data={patient.map((p) => ({ id: p.PID, name: p.NAME }))}
-  //     data={[
-  //       { id: 1, name: "Joe" },
-  //       { id: 2, name: "Mary" },
-  //     ]}
-  //     columns={[
-  //       { field: "Patient ID", title: "Patient ID" },
-  //       { field: "Name", title: "Name" },
-  //     ]}
-  //   />
-  // );
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Patient ID</TableCell>
-            <TableCell align="left">NAME</TableCell>
-            <TableCell align="center">CDCR</TableCell>
-            <TableCell align="right">TYPE</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {patient.map((p, i) => (
-            <TableRow key={i}>
-              <TableCell component="th" scope="row">
-                {p.PID}
-              </TableCell>
-              <TableCell align="left">{p.NAME}</TableCell>
-              <TableCell align="center">{p.CDCR}</TableCell>
-              <TableCell align="right">{p.EIDS[0].TYPE}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <MaterialTable
+      data={patient}
+      columns={[
+        {
+          field: "PID",
+          title: "Patient ID",
+        },
+        {
+          field: "NAME",
+          title: "Name",
+        },
+      ]}
+      detailPanel={({ rowData: patient }) => <DetailPanel patient={patient} />}
+    />
   );
-
-  // return <PatientListItems {...patient} />;
 }
+
+const DetailPanel = (props: { patient: Patient }) => {
+  const { patient } = props;
+  useEffect(() => {
+    window.alert("getting lab data now");
+  }, []);
+  return <div>{JSON.stringify(patient)}</div>;
+};
 
 function validateGetPatients(res: CclReturnData<Patient>): {
   error: boolean;
