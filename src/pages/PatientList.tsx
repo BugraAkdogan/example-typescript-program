@@ -9,9 +9,15 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CclReturnData, getPatientsData, Patient } from "../data";
+import {
+  CclReturnData,
+  getPatientLabsData,
+  getPatientsData,
+  Lab,
+  Patient,
+} from "../data";
 import PatientListItems from "../data/components/PatientListItems";
 import {
   toggleLoading,
@@ -52,7 +58,9 @@ function PatientList() {
 
   return (
     <MaterialTable
+      title="Patient List"
       data={patient}
+      //TODO: how to access EIDS[]?
       columns={[
         {
           field: "PID",
@@ -62,6 +70,10 @@ function PatientList() {
           field: "NAME",
           title: "Name",
         },
+        {
+          field: "CDCR",
+          title: "CDCR",
+        },
       ]}
       detailPanel={({ rowData: patient }) => <DetailPanel patient={patient} />}
     />
@@ -70,10 +82,71 @@ function PatientList() {
 
 const DetailPanel = (props: { patient: Patient }) => {
   const { patient } = props;
+  // console.log(patient.PID);
+  // console.log(patient);
+  const [loading, setLoading] = useState(false);
+  const [patientLabs, setPatientLabs] = useState<Lab[]>([]);
   useEffect(() => {
-    window.alert("getting lab data now");
+    setLoading(true);
+    getPatientLabsData(patient.PID)
+      .then((res) => {
+        const { error, msg } = validateGetPatientLabs(res);
+        if (error) alert(msg);
+        else {
+          // console.log("success");
+          setPatientLabs(res.DATA);
+        }
+      })
+      .then((err) => console.error(err))
+      .finally(() => setLoading(false));
   }, []);
-  return <div>{JSON.stringify(patient)}</div>;
+  if (loading) return <p>Loading...</p>;
+  else
+    return (
+      <MaterialTable
+        title="Patient Labs"
+        data={patientLabs}
+        columns={[
+          {
+            field: "PID",
+            title: "Patient ID",
+          },
+          {
+            field: "LAB",
+            title: "Lab",
+          },
+          {
+            field: "RESULT",
+            title: "Result",
+          },
+          {
+            field: "UNIT",
+            title: "Unit",
+          },
+          {
+            field: "REF_RANGE",
+            title: "Reference Range",
+          },
+          {
+            field: "FLAG",
+            title: "Flag",
+          },
+          {
+            field: "DATE",
+            title: "Date",
+          },
+        ]}
+        style={{
+          backgroundColor: "gray",
+        }}
+        options={{
+          search: false,
+          rowStyle: {
+            backgroundColor: "#6ABAC9",
+          },
+        }}
+      />
+    );
 };
 
 function validateGetPatients(res: CclReturnData<Patient>): {
@@ -86,6 +159,20 @@ function validateGetPatients(res: CclReturnData<Patient>): {
   if (res.DATA.length === 0) {
     return { error: true, msg: "there was no data for the patients" };
   }
+  return { error: false };
+}
+
+function validateGetPatientLabs(res: CclReturnData<Lab>): {
+  error: boolean;
+  msg?: string;
+} {
+  if (!res.DATA) {
+    return { error: true, msg: "no valid data was found for the labs" };
+  }
+  if (res.DATA.length === 0) {
+    return { error: true, msg: "there was no data for the labs" };
+  }
+
   return { error: false };
 }
 
