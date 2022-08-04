@@ -51,7 +51,7 @@ function PatientList() {
   return (
     <MaterialTable
       title="Patient List"
-      data={patient}
+      data={patient.map((pt, i) => ({ id: i, ...pt }))}
       //TODO: how to access EIDS[]?
       columns={[
         {
@@ -70,6 +70,7 @@ function PatientList() {
       detailPanel={({ rowData: patient }) => <DetailPanel patient={patient} />}
       isLoading={loading}
       options={{
+        emptyRowsWhenPaging: false,
         rowStyle: {
           backgroundColor: "lightgray",
         },
@@ -137,6 +138,7 @@ const DetailPanel = (props: { patient: Patient }) => {
       ]}
       isLoading={loading}
       options={{
+        emptyRowsWhenPaging: false,
         search: false,
         showTitle: false,
         loadingType: "linear",

@@ -28,15 +28,15 @@ export default function () {
 
   if (loggedIn) {
     return (
-      <Layout>
-        <PhysicianData />
-        <BrowserRouter>
+      <BrowserRouter>
+        <Layout>
+          <PhysicianData />
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/my-patients" element={<PatientList />} />
           </Routes>
-        </BrowserRouter>
-      </Layout>
+        </Layout>
+      </BrowserRouter>
     );
 
     // if (loggedIn) {
