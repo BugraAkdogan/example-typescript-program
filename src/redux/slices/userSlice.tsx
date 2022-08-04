@@ -3,17 +3,12 @@ import { User } from "../../data";
 
 type UserSliceState = {
   loading: boolean;
-  data: User;
+  data: User | undefined;
 };
 
 const initialState: UserSliceState = {
   loading: false,
-  data: {
-    NAME: "None",
-    POSITION: "None",
-    PHYSICIAN: "None",
-    PID: 0,
-  },
+  data: undefined,
 };
 
 export const userSlice = createSlice({

@@ -1,14 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setFilteredLabs } from "../redux/slices/patientLabSlice";
-import { RootState } from "../redux/store";
 import labs from "./json/patientLabs.json";
 import patients from "./json/patientList.json";
 import user from "./json/userData.json";
-
-// const dispatch = useDispatch;
-// const labSelector = useSelector(
-//   (state: RootState) => state.selectedPatientLabs.filteredLabs
-// );
 
 export type Metadata = {
   CODE: number;
@@ -57,37 +49,36 @@ export type Patient = {
   NEW_TO_PANEL: number;
 };
 
-type PatientArray = {
-  Patient: Array<Patient>;
-};
-
+/**
+ * Get laboratory data for a given patient by patient ID.
+ * @param pid The id of the patient to get labs for.
+ * @returns `Promise` of `CclReturnData<Lab>`
+ */
 export async function getPatientLabsData(
   pid: number
 ): Promise<CclReturnData<Lab>> {
-  const returnData: CclReturnData<Lab> = labs;
-
-  const result: CclReturnData<Lab> = JSON.parse(JSON.stringify(returnData));
- 
-
-  console.log(returnData);
+  const returnData: CclReturnData<Lab> = JSON.parse(JSON.stringify(labs));
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (labs) {
-        result.DATA = result.DATA.filter((lab) => lab.PID === pid);
-        resolve(result);
+        returnData.DATA = returnData.DATA.filter((lab) => lab.PID === pid);
+        resolve(returnData);
       } else reject("Labs list was invalid or missing");
     }, 1000);
   });
 }
 
-export async function getPatientsData(
+/**
+ * Get a list of patients for a given provider based on the provider's ID.
+ * @param pid The ID of the provider to get a patient list for.
+ * @returns `Promise` of `CclReturnData<Patient>`
+ */
+export async function getPatientListData(
   pid: number
 ): Promise<CclReturnData<Patient>> {
   const returnData: CclReturnData<Patient> = patients;
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      // console.log(returnData);
-
       if (patients) {
         returnData.DATA = returnData.DATA.filter((p) => p.PROVIDER_PID === pid);
         resolve(returnData);

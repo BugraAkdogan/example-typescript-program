@@ -1,5 +1,7 @@
+import Layout from "../components/Layout";
+
 function Todos() {
-  return <div>Todos Goes Here</div>;
+  return <Layout>Todos Goes Here</Layout>;
 }
 
 export default Todos;

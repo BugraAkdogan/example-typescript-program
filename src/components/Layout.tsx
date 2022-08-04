@@ -16,14 +16,9 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { DrawerListItem } from "./DrawerListItem";
 
 const drawerWidth = 240;
 
@@ -96,6 +91,19 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
+export type DrawerEntry = {
+  title: string;
+  to: string;
+  icon: JSX.Element;
+};
+
+const drawerEntires: Array<DrawerEntry> = [
+  { title: "Dashboard", to: "/", icon: <DashboardIcon /> },
+  { title: "My Patients", to: "/my-patients", icon: <LocalHospitalIcon /> },
+  { title: "To-Do List", to: "/todo-list", icon: <FormatListNumberedIcon /> },
+  { title: "Logout", to: "/logout", icon: <PowerSettingsNewIcon /> },
+];
+
 export default function MiniDrawer({
   children,
 }: {
@@ -115,7 +123,10 @@ export default function MiniDrawer({
     NAME: name,
     POSITION: position,
     PHYSICIAN: isPhysician,
-  } = useSelector((state: RootState) => state.user.data);
+  } = useSelector(
+    (state: RootState) =>
+      state.user.data || { NAME: "None", POSITION: "None", PHYSICIAN: "None" }
+  );
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -156,105 +167,10 @@ export default function MiniDrawer({
         <Divider />
 
         <List>
-          <ListItem disablePadding sx={{ display: "block" }}>
-            <Link to="/">
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  <DashboardIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Dashboard"
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
-              </ListItemButton>
-            </Link>
-          </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }}>
-            <Link to="my-patients">
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  <LocalHospitalIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="My Patients"
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
-              </ListItemButton>
-            </Link>
-          </ListItem>
-          <ListItem
-            disablePadding
-            sx={{ display: "block" }}
-            onClick={() => console.log("clicked")}
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                <FormatListNumberedIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary="To-Do List"
-                sx={{ opacity: open ? 1 : 0 }}
-              />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                <PowerSettingsNewIcon />
-              </ListItemIcon>
-              <ListItemText primary="Logout" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
+          {drawerEntires.map(({ title, icon, to }) => (
+            <DrawerListItem title={title} icon={icon} to={to} open={open} />
+          ))}
         </List>
-
         <Divider />
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
