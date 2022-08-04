@@ -48,14 +48,6 @@ function PatientList() {
     dispatch(setSelectedPatient(PID));
   }
 
-  if (loading) {
-    return (
-      <div>
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
   return (
     <MaterialTable
       title="Patient List"
@@ -76,6 +68,13 @@ function PatientList() {
         },
       ]}
       detailPanel={({ rowData: patient }) => <DetailPanel patient={patient} />}
+      isLoading={loading}
+      options={{
+        rowStyle: {
+          backgroundColor: "lightgray",
+        },
+        loadingType: "linear",
+      }}
     />
   );
 }
@@ -100,53 +99,66 @@ const DetailPanel = (props: { patient: Patient }) => {
       .then((err) => console.error(err))
       .finally(() => setLoading(false));
   }, []);
-  if (loading) return <p>Loading...</p>;
-  else
-    return (
-      <MaterialTable
-        title="Patient Labs"
-        data={patientLabs}
-        columns={[
-          {
-            field: "PID",
-            title: "Patient ID",
-          },
-          {
-            field: "LAB",
-            title: "Lab",
-          },
-          {
-            field: "RESULT",
-            title: "Result",
-          },
-          {
-            field: "UNIT",
-            title: "Unit",
-          },
-          {
-            field: "REF_RANGE",
-            title: "Reference Range",
-          },
-          {
-            field: "FLAG",
-            title: "Flag",
-          },
-          {
-            field: "DATE",
-            title: "Date",
-          },
-        ]}
-        style={{
-          backgroundColor: "gray",
-        }}
-        options={{
-          search: false,
-          rowStyle: {
-            backgroundColor: "#6ABAC9",
-          },
-        }}
-      />
-    );
+
+  return (
+    <MaterialTable
+      data={patientLabs}
+      columns={[
+        {
+          field: "PID",
+          title: "Patient ID",
+        },
+        {
+          field: "LAB",
+          title: "Lab",
+        },
+        {
+          field: "RESULT",
+          title: "Result",
+        },
+        {
+          field: "UNIT",
+          title: "Unit",
+        },
+        {
+          field: "REF_RANGE",
+          title: "Ref. Range",
+        },
+        {
+          field: "FLAG",
+          title: "Flag",
+        },
+        {
+          field: "DATE",
+          title: "Date",
+          type: "date",
+          dateSetting: { locale: "en-US" },
+        },
+      ]}
+      isLoading={loading}
+      options={{
+        search: false,
+        showTitle: false,
+        loadingType: "linear",
+        padding: "dense",
+        rowStyle: {
+          backgroundColor: "#6ABAC9",
+        },
+        exportAllData: true,
+
+        toolbar: false,
+      }}
+      style={{
+        paddingLeft: "30px",
+        paddingRight: "30px",
+        paddingTop: "-30px",
+        fontWeight: "bold",
+      }}
+      components={{
+        OverlayLoading: (loading) => <div>Loading...</div>,
+      }}
+    />
+  );
 };
 
 function validateGetPatients(res: CclReturnData<Patient>): {

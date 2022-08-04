@@ -27,20 +27,21 @@ function PhysicianData() {
       .finally(() => dispatch(toggleLoading()));
   }, []);
 
-  if (loading) {
-    return (
-      <div>
-        <p>Loading...</p>
-      </div>
-    );
-  }
-  return (
-    <div>
-      <p>{`${name} (${position} - ${
-        isPhysician.toLowerCase() === "yes" ? "Physician" : "Not Physician"
-      })`}</p>
-    </div>
-  );
+  // if (loading) {
+  //   return (
+  //     <div>
+  //       <p>Loading...</p>
+  //     </div>
+  //   );
+  // }
+  // return (
+  //   <div>
+  //     <p>{`${name} (${position} - ${
+  //       isPhysician.toLowerCase() === "yes" ? "Physician" : "Not Physician"
+  //     })`}</p>
+  //   </div>
+  // );
+  return <> </>;
 }
 
 function validateGetUser(res: CclReturnData<User>): {
