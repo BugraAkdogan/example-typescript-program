@@ -168,11 +168,12 @@ export default function MiniDrawer({
 
         <List>
           {drawerEntires.map(({ title, icon, to }) => (
-            <DrawerListItem title={title} icon={icon} to={to} open={open} />
+            <DrawerListItem title={title} icon={icon} to={to} />
           ))}
         </List>
         <Divider />
       </Drawer>
+
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         <div>{children}</div>

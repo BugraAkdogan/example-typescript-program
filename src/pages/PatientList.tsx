@@ -25,43 +25,39 @@ function PatientList() {
   }, []);
 
   return (
-    <Layout>
-      <MaterialTable
-        title="Patient List"
-        data={pts.map((pt, i) => ({ id: i, ...pt }))}
-        //TODO: how to access EIDS[]?
-        columns={[
-          {
-            field: "PID",
-            title: "Patient ID",
-          },
-          {
-            field: "NAME",
-            title: "Name",
-          },
-          {
-            field: "CDCR",
-            title: "CDCR",
-          },
-          {
-            field: "EIDS",
-            title: "Encounter Cnt",
-            render: (rowData) => rowData.EIDS.length,
-          },
-        ]}
-        detailPanel={({ rowData: patient }) => (
-          <DetailPanel patient={patient} />
-        )}
-        isLoading={loading}
-        options={{
-          emptyRowsWhenPaging: false,
-          rowStyle: {
-            backgroundColor: "#f7f7f7",
-          },
-          loadingType: "overlay",
-        }}
-      />
-    </Layout>
+    <MaterialTable
+      title="Patient List"
+      data={pts.map((pt, i) => ({ id: i, ...pt }))}
+      //TODO: how to access EIDS[]?
+      columns={[
+        {
+          field: "PID",
+          title: "Patient ID",
+        },
+        {
+          field: "NAME",
+          title: "Name",
+        },
+        {
+          field: "CDCR",
+          title: "CDCR",
+        },
+        {
+          field: "EIDS",
+          title: "Encounter Cnt",
+          render: (rowData) => rowData.EIDS.length,
+        },
+      ]}
+      detailPanel={({ rowData: patient }) => <DetailPanel patient={patient} />}
+      isLoading={loading}
+      options={{
+        emptyRowsWhenPaging: false,
+        rowStyle: {
+          backgroundColor: "#f7f7f7",
+        },
+        loadingType: "overlay",
+      }}
+    />
   );
 }
 

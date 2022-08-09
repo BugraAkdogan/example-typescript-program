@@ -1,0 +1,70 @@
+[
+  {
+    "id": 1,
+    "title": "First Todo",
+    "category": "SHOPPING",
+    "description": "pick up milk, eggs, and bread",
+    "complete": true,
+    "date": 1389878466730
+  },
+
+  {
+    "id": 2,
+    "title": "Long todo",
+    "category": "REACT",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "complete": false,
+    "date": 1389992494240
+  },
+  {
+    "id": 3,
+    "title": "third Todo",
+    "category": "EXERCISE",
+    "description": "learn bjj, defeat travis",
+    "complete": false,
+
+    "date": 1389988926901
+  },
+
+  {
+    "id": 4,
+    "title": "4th Long todo",
+    "category": "REACT",
+    "description": "Nam vitae mauris convallis, molestie quam et, mattis quam. Sed efficitur porta mauris ut rhoncus. Suspendisse id ullamcorper diam. Aliquam viverra sit amet ipsum a auctor. Nunc mollis diam a pretium efficitur. Vestibulum condimentum eleifend dapibus. Vestibulum id gravida arcu. Proin a porta nisi. Cras gravida ultrices libero, quis dictum risus sodales eget. Vestibulum faucibus eu nisl nec malesuada. Sed accumsan, lectus tristique ornare tincidunt, diam turpis tempor odio, vestibulum luctus mi sapien et neque. Nunc lacinia vehicula massa, non semper mi vulputate id. Nunc mi velit, hendrerit ut nunc a, sodales pellentesque magna. Ut luctus, orci placerat tincidunt volutpat, arcu sapien finibus dui, at ultrices urna risus at eros. In nunc nibh, vestibulum sit amet ullamcorper in, volutpat eget diam. Nullam iaculis nec eros sit amet faucibus.Etiam et arcu tellus. Curabitur ultrices enim ut orci porttitor malesuada. Nullam faucibus, purus a lobortis scelerisque, nibh urna dapibus urna, suscipit pretium ante nisi ac lorem. Vestibulum vel suscipit felis. Nunc iaculis nunc metus, vel hendrerit nulla accumsan et. Vestibulum gravida placerat dui quis ullamcorper. Praesent vehicula odio auctor libero rutrum, vel dapibus urna interdum. Aenean ullamcorper ipsum mauris, et gravida ex accumsan ut. Nunc nec sapien at orci ultricies vulputate.",
+    "complete": true,
+    "date": 1389992494240
+  },
+
+  {
+    "id": 5,
+    "title": "5th Learn how to code hello world",
+    "category": "REACT",
+    "description": "HELLO WORLD",
+    "complete": false,
+    "date": 1389992494240
+  },
+  {
+    "id": 6,
+    "title": "Sixth todo",
+    "category": "SHOPPING",
+    "description": "pick up milk, eggs, and bread",
+    "complete": false,
+    "date": 1389992494240
+  },
+  {
+    "id": 7,
+    "title": "7th title title",
+    "category": "EXERCISE",
+    "description": "Increase bicep size by 400%",
+    "complete": false,
+    "date": 1389992494240
+  },
+  {
+    "id": 8,
+    "title": "8th todo",
+    "category": "CARDIO",
+    "description": "go for a run",
+    "complete": true,
+    "date": 1389992494240
+  }
+]

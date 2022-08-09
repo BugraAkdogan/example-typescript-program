@@ -6,27 +6,27 @@ import ListItemText from "@mui/material/ListItemText";
 import { Link } from "react-router-dom";
 import { DrawerEntry } from "./Layout";
 
-export type DrawerListItem = DrawerEntry & { open: boolean };
-export const DrawerListItem = ({ to, title, icon, open }: DrawerListItem) => (
+export type DrawerListItem = DrawerEntry;
+export const DrawerListItem = ({ to, title, icon }: DrawerListItem) => (
   <ListItem key={title} disablePadding sx={{ display: "block" }}>
     <Link to={to}>
       <ListItemButton
         sx={{
           minHeight: 48,
-          justifyContent: open ? "initial" : "center",
+          justifyContent: "initial",
           px: 2.5,
         }}
       >
         <ListItemIcon
           sx={{
             minWidth: 0,
-            mr: open ? 3 : "auto",
+            mr: 3,
             justifyContent: "center",
           }}
         >
           {icon}
         </ListItemIcon>
-        <ListItemText primary={title} sx={{ opacity: open ? 1 : 0 }} />
+        <ListItemText primary={title} sx={{ opacity: 1 }} />
       </ListItemButton>
     </Link>
   </ListItem>

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import PatientList from "./pages/PatientList";
-import { Button, CircularProgress, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
@@ -10,6 +10,8 @@ import {
   setUser,
 } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
+import Todos from "./pages/Todos";
+import Theme from "./components/Theme";
 
 export default function () {
   const dispatch = useAppDispatch();
@@ -36,27 +38,51 @@ export default function () {
 
   if (!user) {
     return (
-      <div>
-        <Typography variant="h3" component="h1">
-          Please Login
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+        color="text.primary"
+        sx={{
+          flexDirection: "column",
+          backgroundColor: "lightblue",
+        }}
+      >
+        <Typography variant="h5" component="h1">
+          Please Login or Register
         </Typography>
-        <Button
-          variant="contained"
-          endIcon={<LoginIcon />}
-          onClick={handleLogin}
-        >
-          Login
-        </Button>
-      </div>
+        <Box padding={2}>
+          <Button
+            sx={{ padding: 2, margin: 1 }}
+            variant="contained"
+            endIcon={<LoginIcon />}
+            onClick={handleLogin}
+          >
+            Login
+          </Button>
+          <Button
+            sx={{ padding: 2, margin: 1 }}
+            variant="contained"
+            endIcon={<LoginIcon />}
+            onClick={handleLogin}
+          >
+            Register
+          </Button>
+        </Box>
+      </Box>
     );
   }
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/my-patients" element={<PatientList />} />
-      </Routes>
+      <Theme>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/my-patients" element={<PatientList />} />
+          <Route path="/todos" element={<Todos />} />
+        </Routes>
+      </Theme>
     </BrowserRouter>
   );
 }
