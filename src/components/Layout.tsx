@@ -167,8 +167,13 @@ export default function MiniDrawer({
         <Divider />
 
         <List>
-          {drawerEntires.map(({ title, icon, to }) => (
-            <DrawerListItem title={title} icon={icon} to={to} />
+          {drawerEntires.map(({ title, icon, to }, i) => (
+            <DrawerListItem
+              key={`${title}-${i}`}
+              title={title}
+              icon={icon}
+              to={to}
+            />
           ))}
         </List>
         <Divider />

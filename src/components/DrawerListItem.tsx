@@ -6,9 +6,15 @@ import ListItemText from "@mui/material/ListItemText";
 import { Link } from "react-router-dom";
 import { DrawerEntry } from "./Layout";
 
-export type DrawerListItem = DrawerEntry;
-export const DrawerListItem = ({ to, title, icon }: DrawerListItem) => (
-  <ListItem key={title} disablePadding sx={{ display: "block" }}>
+export type DrawerListItemProps = DrawerEntry & { key: string | number };
+
+export const DrawerListItem = ({
+  to,
+  title,
+  icon,
+  key,
+}: DrawerListItemProps) => (
+  <ListItem key={key} disablePadding sx={{ display: "block" }}>
     <Link to={to}>
       <ListItemButton
         sx={{

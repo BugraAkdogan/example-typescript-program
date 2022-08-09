@@ -9,7 +9,6 @@ import {
   Divider,
   List,
   Avatar,
-  Link,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
@@ -19,6 +18,9 @@ import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import { DrawerListItem } from "./DrawerListItem";
 import { deepOrange } from "@material-ui/core/colors";
+
+import AppLogo from "../assets/img/logo192.png";
+import { Link } from "react-router-dom";
 
 export type DrawerEntry = {
   title: string;
@@ -91,22 +93,26 @@ function Theme({ children }: { children: React.ReactNode }) {
         anchor="left"
       >
         <Box
-          component="img"
+          component="div"
           sx={{
-            height: 64,
-            width: 64,
-            maxHeight: { xs: 233, md: 167 },
-            maxWidth: { xs: 350, md: 250 },
+            maxHeight: 64,
+            maxWidth: 64,
             alignSelf: "center",
           }}
-          alt="logo"
-          src="./logo192.png"
-          onClick={() => handleLogoClick()}
-        />
+        >
+          <Link to="/">
+            <img src={AppLogo} alt="logo" width="100%" />
+          </Link>
+        </Box>
         <Divider />
         <List>
-          {drawerEntires.map(({ title, icon, to }) => (
-            <DrawerListItem title={title} icon={icon} to={to} />
+          {drawerEntires.map(({ title, icon, to }, i) => (
+            <DrawerListItem
+              key={`${title}-${i}`}
+              title={title}
+              icon={icon}
+              to={to}
+            />
           ))}
         </List>
       </Drawer>

@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from "react-redux";
 import PatientList from "./pages/PatientList";
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
@@ -13,7 +12,7 @@ import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import Todos from "./pages/Todos";
 import Theme from "./components/Theme";
 
-export default function () {
+function App() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.data);
   const userLoading = useAppSelector((state) => state.user.loading);
@@ -105,3 +104,5 @@ function validateGetUser(res: CclReturnData<User>): {
   }
   return { error: false };
 }
+
+export default App;

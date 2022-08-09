@@ -51,7 +51,7 @@ export const DetailPanel = (props: { patient: Patient }) => {
       })
       .then((err) => console.error(err))
       .finally(() => setLoading(false));
-  }, []);
+  }, [patient.PID]);
 
   return (
     <MaterialTable

@@ -1,8 +1,7 @@
 import MaterialTable from "@material-table/core";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CclReturnData, getPatientListData, Lab, Patient } from "../data";
-import Layout from "../components/Layout";
+import { CclReturnData, getPatientListData, Patient } from "../data";
 import { toggleLoading, setPatients } from "../redux/slices/patientsSlice";
 import { RootState } from "../redux/store";
 import { DetailPanel } from "../components/DetailPanel";
@@ -22,7 +21,7 @@ function PatientList() {
       })
       .then((err) => console.error(err))
       .finally(() => dispatch(toggleLoading()));
-  }, []);
+  }, [dispatch]);
 
   return (
     <MaterialTable
