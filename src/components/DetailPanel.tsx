@@ -60,20 +60,20 @@ export const DetailPanel = (props: { patient: Patient }) => {
       isLoading={loading}
       options={{
         emptyRowsWhenPaging: false,
-        search: false,
+        search: true,
         showTitle: false,
         loadingType: "overlay",
         padding: "dense",
         rowStyle: {
-          backgroundColor: "#6ABAC9",
+          backgroundColor: "lightblue",
         },
         exportAllData: true,
-        toolbar: false,
+        toolbar: true,
       }}
       style={{
         paddingLeft: "30px",
         paddingRight: "30px",
-        paddingTop: "-30px",
+
         fontWeight: "bold",
       }}
     />

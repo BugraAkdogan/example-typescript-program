@@ -21,6 +21,7 @@ import { deepOrange } from "@material-ui/core/colors";
 
 import AppLogo from "../assets/img/logo192.png";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export type DrawerEntry = {
   title: string;
@@ -31,6 +32,8 @@ export type DrawerEntry = {
 const drawerWidth = 240;
 
 function Theme({ children }: { children: React.ReactNode }) {
+  //TODO: Add rating names "bad", "ok", "good"
+  const [rating, setRating] = useState<number | null>(2);
   const {
     NAME: name,
     POSITION: position,
@@ -46,10 +49,6 @@ function Theme({ children }: { children: React.ReactNode }) {
     { title: "To-Do List", to: "/todos", icon: <FormatListNumberedIcon /> },
     { title: "Logout", to: "/logout", icon: <PowerSettingsNewIcon /> },
   ];
-
-  function handleLogoClick() {
-    <a href="/">Link</a>;
-  }
 
   return (
     <Box sx={{ flexGrow: 1 }} display="flex">
@@ -71,11 +70,17 @@ function Theme({ children }: { children: React.ReactNode }) {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Typography variant="h5">MPAGE HUB</Typography>
-
           <Box sx={{ flexGrow: 1 }} />
+
           <Typography variant="body2">Your Rating:</Typography>
           <Box sx={{ display: { xs: "flex", md: "flex" } }}>
-            <Rating name="read-only" value={2} readOnly />
+            <Rating
+              name="simple-controlled"
+              value={rating}
+              onChange={(e, newRating) => {
+                setRating(newRating);
+              }}
+            />
           </Box>
         </Toolbar>
       </AppBar>

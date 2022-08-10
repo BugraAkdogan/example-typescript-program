@@ -1,7 +1,7 @@
 import PatientList from "./pages/PatientList";
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import { CclReturnData, getUserData, User } from "./data";
 import {
@@ -9,8 +9,12 @@ import {
   setUser,
 } from "./redux/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
-import Todos from "./pages/Todos";
+import TodosPage from "./pages/Todos";
 import Theme from "./components/Theme";
+import InvalidPage from "./pages/InvalidPage";
+import Logout from "./pages/Logout";
+import { setTodos } from "./redux/slices/todoSlice";
+import todoList from "./data/json/todos.json";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -19,6 +23,7 @@ function App() {
 
   function handleLogin() {
     dispatch(toggleUserLoading());
+    dispatch(setTodos(todoList));
     getUserData(providerPid)
       .then((res) => {
         const { error, msg } = validateGetUser(res);
@@ -79,7 +84,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/my-patients" element={<PatientList />} />
-          <Route path="/todos" element={<Todos />} />
+          <Route path="/todos" element={<TodosPage />} />
+          <Route path="/404" element={<InvalidPage />} />
+          <Route path="/logout" element={<Logout />} />
+
+          <Route path="*" element={<Navigate to="/404" replace />} />
         </Routes>
       </Theme>
     </BrowserRouter>

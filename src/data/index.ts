@@ -2,6 +2,15 @@ import labs from "./json/patientLabs.json";
 import patients from "./json/patientList.json";
 import user from "./json/userData.json";
 
+export type Todo = {
+  id: number;
+  title: string;
+  category: string;
+  description: string;
+  complete: boolean;
+  date: number;
+};
+
 export type Metadata = {
   CODE: number;
   MSG: string;
