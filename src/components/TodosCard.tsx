@@ -32,6 +32,7 @@ export default function TodosCard(props: TodoCardProps) {
 
   function handleDeleteTodo(id: number) {
     dispatch(deleteTodo(id));
+    // TODO: Makes no sense here
     <Snackbar autoHideDuration={6000}>
       <Alert severity="success" sx={{ width: "100%" }}>
         Deleted Successfully!

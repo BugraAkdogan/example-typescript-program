@@ -1,10 +1,10 @@
 import Masonry from "@mui/lab/Masonry";
-import { Box, Card, MenuItem, TextField } from "@mui/material";
+import { Box } from "@mui/material";
 
 import AddTodo from "../components/AddTodo";
 import TodosCard from "../components/TodosCard";
 
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppSelector } from "../redux/hooks";
 
 export default function Todos() {
   const todos = useAppSelector((state) => state.todoList.todos);

@@ -29,29 +29,27 @@ function AddTodo() {
   }
 
   return (
-    <>
-      <Box component="form">
-        <div>
-          <div>Add Todo Form Goes here</div>
-          <TextField
-            id="outlined-select-category"
-            select
-            label="Category"
-            value={category}
-            onChange={(e) => {
-              setCategory(e.target.value);
-            }}
-            helperText="Please select category"
-          >
-            {categories.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </div>
-      </Box>
-    </>
+    <Box component="form">
+      <div>
+        <div>Add Todo Form Goes here</div>
+        <TextField
+          id="outlined-select-category"
+          select
+          label="Category"
+          value={category}
+          onChange={(e) => {
+            setCategory(e.target.value);
+          }}
+          helperText="Please select category"
+        >
+          {categories.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </div>
+    </Box>
   );
 }
 
