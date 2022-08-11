@@ -8,7 +8,7 @@ export type Todo = {
   category: string;
   description: string;
   complete: boolean;
-  date: number;
+  date: string;
 };
 
 export type Metadata = {

@@ -53,34 +53,33 @@ export default function TodosCard(props: TodoCardProps) {
     >
       <CardHeader
         avatar={<Avatar> {category[0].toUpperCase()}</Avatar>}
-        title={
-          <Typography>
-            {title}
+        title={<Typography>{title}</Typography>}
+        subheader={
+          <Typography variant="caption">
+            Category: {category}{" "}
             {complete && <CheckCircleIcon color="success" />}
             {!complete && <CancelIcon color="error" />}
           </Typography>
         }
-        subheader={
-          <Typography variant="caption">Category: {category}</Typography>
-        }
       />
 
-      <CardContent>
-        <IconButton
-          aria-label="delete"
-          onClick={() => {
-            handleDeleteTodo(id);
-          }}
-        >
-          <DeleteIcon />
-        </IconButton>
-        <Switch
-          checked={complete}
-          onChange={() => {
-            handleToggleTodo(id);
-          }}
-        />
+      <IconButton
+        aria-label="delete"
+        onClick={() => {
+          handleDeleteTodo(id);
+        }}
+      >
+        <DeleteIcon />
+      </IconButton>
+      <Switch
+        checked={complete}
+        onChange={() => {
+          handleToggleTodo(id);
+        }}
+      />
 
+      <Typography variant="caption">{date}</Typography>
+      <CardContent>
         <Typography variant="body2" color="primary">
           {description}
         </Typography>

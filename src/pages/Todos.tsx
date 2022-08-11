@@ -12,7 +12,7 @@ export default function Todos() {
   return (
     <Box>
       <AddTodo />
-      <Masonry columns={4} spacing={1}>
+      <Masonry columns={3} spacing={3}>
         {todos.length > 0 && todos.map((todo) => <TodosCard todo={todo} />)}
         {todos.length === 0 && <h2>No todos found...</h2>}
       </Masonry>
