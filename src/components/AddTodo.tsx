@@ -64,23 +64,29 @@ function AddTodo() {
   return (
     <Box
       component="form"
-      border={1}
+      justifyContent="center"
       sx={{
+        display: "flex",
+        flexWrap: "wrap",
         "& > :not(style)": { m: 1 },
+        paddingBottom: 2,
       }}
     >
-      <Typography align="center">Add Todo</Typography>
-      <Button disabled={errorInFields()} onClick={() => handleAddTodo()}>
-        Submit
-      </Button>
+      <Typography
+        sx={{
+          flex: "1 1 100%",
+        }}
+        align="center"
+        variant="h5"
+      >
+        Add Todo
+      </Typography>
 
       <TextField
         id="outlined-select-category"
         label="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        error={title.length === 0}
-        helperText={title.length === 0 ? "Title is required" : ""}
       >
         Title
       </TextField>
@@ -106,6 +112,21 @@ function AddTodo() {
       >
         Description
       </TextField>
+      <Box
+        alignItems="center"
+        justifyContent="center"
+        textAlign="center"
+        sx={{ flex: " 100%" }}
+      >
+        <Button
+          variant="contained"
+          disabled={errorInFields()}
+          onClick={() => handleAddTodo()}
+          sx={{ minWidth: "30vh" }}
+        >
+          Submit
+        </Button>
+      </Box>
     </Box>
   );
 }

@@ -6,10 +6,24 @@ import { toggleLoading, setPatients } from "../redux/slices/patientsSlice";
 import { RootState } from "../redux/store";
 import { DetailPanel } from "../components/DetailPanel";
 
+// export function InitializePatientList() {
+//   const dispatch = useDispatch();
+//   dispatch(toggleLoading());
+//   getPatientListData(providerPid)
+//     .then((res) => {
+//       const { error, msg } = validateGetPatients(res);
+//       if (error) console.log(msg);
+//       else dispatch(setPatients(res.DATA));
+//     })
+//     .then((err) => console.error(err))
+//     .finally(() => dispatch(toggleLoading()));
+
+// }
+
 function PatientList() {
-  const dispatch = useDispatch();
   const pts = useSelector((state: RootState) => state.patientList.patients);
   const loading = useSelector((state: RootState) => state.patientList.loading);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(toggleLoading());
