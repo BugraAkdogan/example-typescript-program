@@ -10,6 +10,10 @@ import {
   List,
   Avatar,
   Badge,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
@@ -28,6 +32,8 @@ export type DrawerEntry = {
   title: string;
   to: string;
   icon: JSX.Element;
+  invisible: boolean;
+  notification: number;
 };
 
 const drawerWidth = 240;
@@ -45,10 +51,38 @@ function Theme({ children }: { children: React.ReactNode }) {
   );
 
   const drawerEntires: Array<DrawerEntry> = [
-    { title: "Dashboard", to: "/", icon: <DashboardIcon /> },
-    { title: "My Patients", to: "/my-patients", icon: <LocalHospitalIcon /> },
-    { title: "To-Do List", to: "/todos", icon: <FormatListNumberedIcon /> },
-    { title: "Logout", to: "/logout", icon: <PowerSettingsNewIcon /> },
+    {
+      title: "Dashboard",
+      to: "/",
+      icon: <DashboardIcon />,
+      invisible: true,
+      notification: 0,
+    },
+    {
+      title: "My Patients",
+      to: "/my-patients",
+      icon: <LocalHospitalIcon />,
+      invisible: false,
+      notification: useSelector(
+        (state: RootState) => state.patientList.patients.length
+      ),
+    },
+    {
+      title: "To-Do List",
+      to: "/todos",
+      icon: <FormatListNumberedIcon />,
+      invisible: false,
+      notification: useSelector(
+        (state: RootState) => state.todoList.todos.length
+      ),
+    },
+    {
+      title: "Logout",
+      to: "/logout",
+      icon: <PowerSettingsNewIcon />,
+      invisible: true,
+      notification: 0,
+    },
   ];
 
   return (
@@ -112,16 +146,48 @@ function Theme({ children }: { children: React.ReactNode }) {
         </Box>
         <Divider />
         <List>
-          {drawerEntires.map(({ title, icon, to }, i) => (
-            <DrawerListItem
-              key={`${title}-${i}`}
-              title={title}
-              icon={icon}
-              to={to}
-            />
-          ))}
+          {drawerEntires.map(
+            ({ title, icon, to, invisible, notification }, i) => (
+              <DrawerListItem
+                key={`${title}-${i}`}
+                title={title}
+                icon={icon}
+                to={to}
+                invisible={invisible}
+                notification={notification}
+              />
+            )
+          )}
+          {/* <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            button
+            component={Link}
+            to="/"
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: "initial",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: 3,
+                  justifyContent: "center",
+                }}
+              >
+                <DashboardIcon />
+              </ListItemIcon>
+              <ListItemText primary="Dashboard" sx={{ opacity: 1 }} />
+              <Badge badgeContent={4} color="primary" />
+            </ListItemButton>
+          </ListItem>*/}
         </List>
       </Drawer>
+
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
         <div>{children}</div>
