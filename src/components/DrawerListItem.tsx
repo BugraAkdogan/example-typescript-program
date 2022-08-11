@@ -5,6 +5,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { Link } from "react-router-dom";
 import { DrawerEntry } from "./Layout";
+import { Badge } from "@mui/material";
 
 export type DrawerListItemProps = DrawerEntry & { key: string | number };
 
@@ -32,7 +33,9 @@ export const DrawerListItem = ({
         >
           {icon}
         </ListItemIcon>
+
         <ListItemText primary={title} sx={{ opacity: 1 }} />
+        <Badge badgeContent={4} color="primary" />
       </ListItemButton>
     </Link>
   </ListItem>
