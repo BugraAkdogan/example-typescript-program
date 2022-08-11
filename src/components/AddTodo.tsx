@@ -30,31 +30,35 @@ type TodoProps = {
 
 function AddTodo() {
   const dispatch = useAppDispatch();
-  const today = new Date();
-  const [todo, setTodo] = useState<Todo>({
-    id: Math.floor(Math.random() * 100),
-    complete: false,
-    category: "REACT",
-    title: "",
-    description: "",
-    date: today.toJSON().slice(0, 10),
-  });
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
 
-  //   useEffect(() => {
-  //     setTodo({ ...todo, id: Math.floor(Math.random() * 1000) });
-  //     console.log("randomized date");
-  //   }, [todo.title]);
+  const errorInFields = (): boolean => {
+    return (
+      title.length === 0 || category.length === 0 || description.length === 0
+    );
+  };
+
+  const resetState = () => {
+    setTitle("");
+    setDescription("");
+    setCategory("");
+  };
 
   function handleAddTodo() {
-    console.log(todo);
+    const addTime = new Date();
+    const todo: Todo = {
+      title,
+      description,
+      category,
+      id: addTime.getTime(),
+      complete: false,
+      date: addTime.toLocaleDateString(),
+    };
+
     dispatch(addTodo(todo));
-    setTodo({
-      ...todo,
-      id: Math.floor(Math.random() * 100),
-      title: "",
-      description: "",
-      category: "REACT",
-    });
+    resetState();
   }
 
   return (
@@ -66,15 +70,17 @@ function AddTodo() {
       }}
     >
       <Typography align="center">Add Todo</Typography>
-      <Button onClick={() => handleAddTodo()}>Submit</Button>
+      <Button disabled={errorInFields()} onClick={() => handleAddTodo()}>
+        Submit
+      </Button>
 
       <TextField
         id="outlined-select-category"
         label="Title"
-        value={todo.title}
-        onChange={(e) => {
-          setTodo({ ...todo, title: e.target.value });
-        }}
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        error={title.length === 0}
+        helperText={title.length === 0 ? "Title is required" : ""}
       >
         Title
       </TextField>
@@ -82,10 +88,8 @@ function AddTodo() {
         id="outlined-select-category"
         select
         label="Category"
-        value={todo.category}
-        onChange={(e) => {
-          setTodo({ ...todo, category: e.target.value });
-        }}
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
         sx={{ minWidth: "20vh" }}
       >
         {categories.map((option) => (
@@ -97,10 +101,8 @@ function AddTodo() {
       <TextField
         id="outlined-enter-description"
         label="Description"
-        value={todo.description}
-        onChange={(e) => {
-          setTodo({ ...todo, description: e.target.value });
-        }}
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
       >
         Description
       </TextField>
