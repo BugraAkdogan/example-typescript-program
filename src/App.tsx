@@ -3,11 +3,21 @@ import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import { CclReturnData, getUserData, User } from "./data";
+import {
+  CclReturnData,
+  getPatientListData,
+  getUserData,
+  Patient,
+  User,
+} from "./data";
 import {
   toggleLoading as toggleUserLoading,
   setUser,
 } from "./redux/slices/userSlice";
+import {
+  toggleLoading as togglePatientsLoading,
+  setPatients,
+} from "./redux/slices/patientsSlice";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import TodosPage from "./pages/Todos";
 import Theme from "./components/Theme";
@@ -20,6 +30,7 @@ function App() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.data);
   const userLoading = useAppSelector((state) => state.user.loading);
+  const ptListLoading = useAppSelector((state) => state.patientList.loading);
 
   function handleLogin() {
     dispatch(toggleUserLoading());
@@ -34,6 +45,16 @@ function App() {
       })
       .then((err) => console.error(err))
       .finally(() => dispatch(toggleUserLoading()));
+
+    dispatch(togglePatientsLoading());
+    getPatientListData(providerPid)
+      .then((res) => {
+        const { error, msg } = validateGetPatients(res);
+        if (error) console.log(msg);
+        else dispatch(setPatients(res.DATA));
+      })
+      .then((err) => console.error(err))
+      .finally(() => dispatch(togglePatientsLoading()));
   }
 
   if (userLoading) {
@@ -115,3 +136,16 @@ function validateGetUser(res: CclReturnData<User>): {
 }
 
 export default App;
+
+function validateGetPatients(res: CclReturnData<Patient>): {
+  error: boolean;
+  msg?: string;
+} {
+  if (!res.DATA) {
+    return { error: true, msg: "no valid data was found for the patients" };
+  }
+  if (res.DATA.length === 0) {
+    return { error: true, msg: "there was no data for the patients" };
+  }
+  return { error: false };
+}

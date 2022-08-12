@@ -1,4 +1,4 @@
-import { Button, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { Box, MenuItem, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Todo } from "../data";
@@ -62,72 +62,67 @@ function AddTodo() {
   }
 
   return (
-    <Box
-      component="form"
-      justifyContent="center"
-      sx={{
-        display: "flex",
-        flexWrap: "wrap",
-        "& > :not(style)": { m: 1 },
-        paddingBottom: 2,
-      }}
-    >
-      <Typography
-        sx={{
-          flex: "1 1 100%",
-        }}
-        align="center"
-        variant="h5"
-      >
-        Add Todo
-      </Typography>
-
-      <TextField
-        id="outlined-select-category"
-        label="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      >
-        Title
-      </TextField>
-      <TextField
-        id="outlined-select-category"
-        select
-        label="Category"
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        sx={{ minWidth: "20vh" }}
-      >
-        {categories.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-      <TextField
-        id="outlined-enter-description"
-        label="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      >
-        Description
-      </TextField>
-      <Box
-        alignItems="center"
-        justifyContent="center"
-        textAlign="center"
-        sx={{ flex: " 100%" }}
-      >
-        <Button
-          variant="contained"
-          disabled={errorInFields()}
-          onClick={() => handleAddTodo()}
-          sx={{ minWidth: "30vh" }}
-        >
-          Submit
-        </Button>
-      </Box>
-    </Box>
+    <Grid container spacing={3} sx={{ marginBottom: "2rem" }}>
+      <Grid item xs={12}>
+        <Typography align="center" variant="h5">
+          Add Todo
+        </Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <Grid container spacing={2} justifyContent="center" alignItems="center">
+          <Grid item>
+            <TextField
+              id="outlined-select-category"
+              label="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            >
+              Title
+            </TextField>
+          </Grid>
+          <Grid item>
+            <TextField
+              id="outlined-select-category"
+              select
+              label="Category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              sx={{ minWidth: "20vh" }}
+            >
+              {categories.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+          <Grid item>
+            <TextField
+              id="outlined-enter-description"
+              label="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            >
+              Description
+            </TextField>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <Grid container spacing={2} justifyContent="center" alignItems="center">
+          <Grid item>
+            <Button
+              variant="contained"
+              disabled={errorInFields()}
+              onClick={() => handleAddTodo()}
+              sx={{ minWidth: "30vh" }}
+            >
+              Submit
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }
 

@@ -158,33 +158,6 @@ function Theme({ children }: { children: React.ReactNode }) {
               />
             )
           )}
-          {/* <ListItem
-            disablePadding
-            sx={{ display: "block" }}
-            button
-            component={Link}
-            to="/"
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: "initial",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: 3,
-                  justifyContent: "center",
-                }}
-              >
-                <DashboardIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dashboard" sx={{ opacity: 1 }} />
-              <Badge badgeContent={4} color="primary" />
-            </ListItemButton>
-          </ListItem>*/}
         </List>
       </Drawer>
 
